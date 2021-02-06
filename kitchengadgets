@@ -43,11 +43,17 @@ function my_orders_bill_to_column( $order ) {
 add_action( 'woocommerce_my_account_my_orders_column_order-bill-to', 'my_orders_bill_to_column' );
 
 
-//add_filter( 'woocommerce_email_recipient_customer_processing_order', 'shop_email_recipient', 10, 2 );
+
+
+/// Email to User Email ID
+add_filter( 'woocommerce_email_recipient_customer_processing_order', 'shop_email_recipient', 10, 2 );
 function shop_email_recipient( $recipient, $order ) {
     if ( ! is_a( $order, 'WC_Order' ) ) return $recipient;
 
-    // Set HERE your replacement recipient email(s)… (If multiple, separate them by a coma)
-    $recipient = $recipient .', abc@test.in;
-    return $recipient;
+	$user_info = get_userdata($order->user_id);
+    $user_email=$user_info->user_email;  
+	
+    // Email to user email id
+    $recipient = $recipient .','. $user_email;
+	 return $recipient;
 }
