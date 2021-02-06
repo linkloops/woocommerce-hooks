@@ -1,3 +1,5 @@
+//Send an email to custom email address along with customer in wooCommerce processing order email
+
 add_filter( 'woocommerce_email_recipient_customer_processing_order', 'shop_email_recipient', 10, 2 );
 function shop_email_recipient( $recipient, $order ) {
     if ( ! is_a( $order, 'WC_Order' ) ) return $recipient;
